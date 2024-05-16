@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>On-Screen Nepali Keyboard</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<textarea id="textarea" rows="4" cols="50"></textarea>
+	<div class="container"></div>
+	<script type="module">
+		// Define the mapping function
+		import {generateKeyboard, preeti, jsKeyMap} from "./script.js";
+		generateKeyboard();
+
+		document.addEventListener('keydown', function (event) {
+			console.log(preeti(event.key));
+			const pressedKey = document.querySelector("." + (jsKeyMap[event.key] ?? event.key));
+			if (pressedKey) {
+				pressedKey.classList.add('pressed');
+				setTimeout(() => {
+					pressedKey.classList.remove('pressed'); 
+				}, 200);
+			}
+			const textArea = document.getElementById('textarea');
+		});
+	</script>
+</body>
+
+</html>

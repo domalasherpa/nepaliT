@@ -1,0 +1,65 @@
+#keyboard {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 5px;
+}
+
+button {
+    /* padding: 10px; */
+    font-size: 16px;
+
+}
+
+span {
+    margin: 3px;
+}
+
+.pressed {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3) inset;
+    /* Adjust the shadow as needed */
+}
+
+.container {
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.row0,
+.row1,
+.row2,
+.row3,
+.row4 {
+    display: grid;
+    grid-template-columns: repeat(14, auto);
+    gap: 3px;
+}
+
+.Shift,
+.Enter {
+    grid-column: span 2;
+}
+
+.item {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    /* width: auto; */
+    /* min-height: 40px; */
+    height: 70px;
+    margin: 0px;
+    text-align: center;
+}
+
+.Backspace {
+    grid-column: span 1;
+}
+
+
+.Space {
+    grid-column: span 5;
+}
