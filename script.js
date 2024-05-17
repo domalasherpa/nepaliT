@@ -1,3 +1,4 @@
+
 var all_rules = {
     "preeti": {
         "name": "Preeti",
@@ -14,23 +15,33 @@ var keyBoardLayout = [
     [["Tab"], ["q", "Q"], ["w", "W"], ["e", "E"], ["r", "R"], ["t", "T"], ["y", "Y"], ["u", "U"], ["i", "I"], ["o", "O"], ["p", "P"], ["[", "{"], ["]", "}"], ["\\", "|"]],
     [["Caps"], ["a", "A"], ["s", "S"], ["d", "D"], ["f", "F"], ["g", "G"], ["h", "H"], ["j", "J"], ["k", "K"], ["l", "L"], [";", ":"], ["'", "\""], ["Enter"]],
     [["Shift"], ["z", "Z"], ["x", "X"], ["c", "C"], ["v", "V"], ["b", "B"], ["n", "N"], ["m", "M"], [",", "<"], [".", ">"], ["/", "?"], ["Shift"]],
-    [["Ctrl"], ["Fn"], ["win"], ["Alt"], ["Space"], ["Alt"], ["Ctrl"], ["left_arr"], ["down_arr"], ["right_arr"]]
+    [["Space"]]
+    // [["Ctrl"], ["Fn"], ["win"], ["Alt"], ["Space"], ["Alt"], ["Ctrl"], ["left_arr"], ["down_arr"], ["right_arr"]]
 ]
 
-export var jsKeyMap = { "CapsLock": "Caps", "ArrowLeft": "left_arr", "ArrowLeft": "left_arrr", "ArrowDown": "down_arr", "Control": "Ctrl", " ": "Space" };
+export var jsKeyMap = { "~": "tilde","`": "tick", "@": "add", "#": "hashtag", "!":"exclamation", "$":"dollar", "%": "percent", "^": "cap", "&": "amp", "*":"mul", "(": "left_paren", ")": "right_paren", "-": "minus", "_": "underscore", "=": "equals", "+": "plus","[": "left_bracket", "]": "right_bracket", "{": "curly_open", "}": "curly_close", "|": "pipeline", "\\":"slash", ";": "semicolon", ":": "colon", "\"": "double_quote", "'": "single_quote", ",": "comma", "<" : "leftangle", ".": "fullstop", ">": "rightangle", "/": "divide", "?":"question_mark","CapsLock": "Caps", "ArrowLeft": "left_arr", "ArrowRight": "right_arr", "ArrowDown": "down_arr", "Control": "Ctrl", " ": "Space" , "1": "one", "2": "two", "3": "three", "4": "four", "5": "five", "6": "six", "7": "seven", "8":"eight", "9": "nine", "0": "zero"};
 
 export function generateKeyboard() {
     const keyboard = document.querySelector(".container");
     for (var i = 0; i < keyBoardLayout.length; i++) {
+
         const row = document.createElement("div");
         row.classList.add("row" + i);
+        let isFirstShiftEncountered = false;
+
         keyBoardLayout[i].forEach((item, index) => {
             const button = document.createElement("button");
-            button.classList.add("item");
-            button.classList.add(item[0]);
+            button.classList.add("item", (jsKeyMap[item[0]] ?? item[0]));
 
+            //if it is key such as control keys, with only one item no need to add span
             if (item.length == 1) {
                 button.innerText = item[0];
+                if (item[0] === "Shift") {
+                    if(isFirstShiftEncountered){
+                        button.classList.add('Shiftright');
+                    }
+                    isFirstShiftEncountered = true;
+                }
             }
             else {
                 const span1 = document.createElement("span");
@@ -42,7 +53,7 @@ export function generateKeyboard() {
                 span2.innerText = all_rules["preeti"]["char-map"][item[1]] ?? "";
                 span3.innerText = item[0];
                 span4.innerText = item[1];
-                button.classList.add(item[1]);
+                button.classList.add((jsKeyMap[item[1]] ?? item[1]));
                 button.appendChild(span1);
                 button.appendChild(span2);
                 button.appendChild(document.createElement("br"));
