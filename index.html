@@ -9,16 +9,25 @@
 </head>
 
 <body>
-	<textarea id="textarea" rows="4" cols="50"></textarea>
-	<div class="container"></div>
+	<div class="mainContainer">
+		<textarea id="textarea" rows="4" cols="50" autofocus></textarea>
+		<div class="container"></div>
+	</div>
+	
 	<script type="module">
-		// Define the mapping function
 		import {generateKeyboard, preeti, jsKeyMap} from "./script.js";
 		generateKeyboard();
 
 		document.addEventListener('keydown', function (event) {
 			console.log(preeti(event.key));
-			const pressedKey = document.querySelector("." + (jsKeyMap[event.key] ?? event.key));
+			let pressedKey;
+			if(event.location == 2){
+				pressedKey = document.querySelector("." + (jsKeyMap[event.key] ?? event.key) + "right");
+			}
+			else{
+				pressedKey = document.querySelector("." + (jsKeyMap[event.key] ?? event.key));
+			}
+
 			if (pressedKey) {
 				pressedKey.classList.add('pressed');
 				setTimeout(() => {
