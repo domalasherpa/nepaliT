@@ -6,16 +6,22 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>On-Screen Nepali Keyboard</title>
 	<link rel="stylesheet" href="style.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arya:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 	<div class="mainContainer">
-		<textarea id="textarea" rows="4" cols="50" autofocus></textarea>
+		<div class="wordDisplay"></div>
+		<!-- <textarea id="textarea" rows="4" cols="50" autofocus></textarea> -->
 		<div class="container"></div>
 	</div>
 	
 	<script type="module">
 		import {generateKeyboard, preeti, jsKeyMap} from "./script.js";
+		import {randomWords} from "./wordsGenerator.js";
+
 		generateKeyboard();
 
 		document.addEventListener('keydown', function (event) {
@@ -35,6 +41,28 @@
 				}, 200);
 			}
 			const textArea = document.getElementById('textarea');
+		});
+
+		document.addEventListener('DOMContentLoaded', ()=>{
+			console.log(randomWords);
+			const wordDisplay = document.querySelector(".wordDisplay");
+			const randomWord= document.createElement('p');
+			const charDisplay = document.createElement("p");
+			
+			let word = randomWords[0];
+			randomWord.innerText = word;
+			randomWord.classList.add("randomWord");
+			charDisplay.classList.add("charDisplay");
+
+			wordDisplay.appendChild(randomWord);
+			for(let i = 0; i < word.length; i++){
+				let singleRandomChar = document.createElement("span");
+				singleRandomChar.innerText = word[i];
+				charDisplay.appendChild(singleRandomChar);
+			};
+
+			wordDisplay.appendChild(charDisplay);
+			wordDisplay.classList.add("arya-regular");
 		});
 	</script>
 </body>
