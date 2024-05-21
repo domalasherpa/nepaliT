@@ -1,4 +1,8 @@
 
+/**
+ * code snippet @ Nick Doiron
+ * repo link:  https://github.com/Shuvayatra/preeti/blob/master/preeti.js
+ */
 var all_rules = {
     "preeti": {
         "name": "Preeti",
@@ -9,6 +13,30 @@ var all_rules = {
         }
     }
 };
+
+export function preeti(text, font) {
+    // get font rules - default to Preeti
+    if (!font) {
+        font = 'preeti';
+    }
+    //   font = font.toLowerCase();
+    var myFont = all_rules[font];
+    if (!myFont) {
+        throw 'font not included in module';
+    }
+
+    var output = '';
+    for (var w = 0; w < text.length; w++) {
+        var letter = text[w];
+        output += myFont['char-map'][letter] || letter;
+    }
+    for (var r = 0; r < myFont['post-rules'].length; r++) {
+        output = output.replace(new RegExp(myFont['post-rules'][r][0], 'g'), myFont['post-rules'][r][1]);
+    }
+    return output;
+}
+
+/**-----------------------------------------------------------------------------------------------------*/
 
 var keyBoardLayout = [
     [["`", "~"], ["1", "!"], ["2", "@"], ["3", "#"], ["4", "$"], ["5", "%"], ["6", "^"], ["7", "&"], ["8", "*"], ["9", "("], ["0", ")"], ["-", "_"], ["=", "+"], ["Backspace"]],
@@ -66,25 +94,5 @@ export function generateKeyboard() {
     }
 }
 
-export function preeti(text, font) {
-    // get font rules - default to Preeti
-    if (!font) {
-        font = 'preeti';
-    }
-    //   font = font.toLowerCase();
-    var myFont = all_rules[font];
-    if (!myFont) {
-        throw 'font not included in module';
-    }
 
-    var output = '';
-    for (var w = 0; w < text.length; w++) {
-        var letter = text[w];
-        output += myFont['char-map'][letter] || letter;
-    }
-    for (var r = 0; r < myFont['post-rules'].length; r++) {
-        output = output.replace(new RegExp(myFont['post-rules'][r][0], 'g'), myFont['post-rules'][r][1]);
-    }
-    return output;
-}
 
