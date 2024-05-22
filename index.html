@@ -20,8 +20,9 @@
 	
 	<script type="module">
 		import {generateKeyboard, preeti, jsKeyMap} from "./script.js";
-		import {randomWords} from "./wordsGenerator.js";
+		import {showRandomWords} from "./wordsGenerator.js";
 
+		showRandomWords();
 		generateKeyboard();
 
 		document.addEventListener('keydown', function (event) {
@@ -43,27 +44,6 @@
 			const textArea = document.getElementById('textarea');
 		});
 
-		document.addEventListener('DOMContentLoaded', ()=>{
-			console.log(randomWords);
-			const wordDisplay = document.querySelector(".wordDisplay");
-			const randomWord= document.createElement('p');
-			const charDisplay = document.createElement("p");
-			
-			let word = randomWords[0];
-			randomWord.innerText = word;
-			randomWord.classList.add("randomWord");
-			charDisplay.classList.add("charDisplay");
-
-			wordDisplay.appendChild(randomWord);
-			for(let i = 0; i < word.length; i++){
-				let singleRandomChar = document.createElement("span");
-				singleRandomChar.innerText = word[i];
-				charDisplay.appendChild(singleRandomChar);
-			};
-
-			wordDisplay.appendChild(charDisplay);
-			wordDisplay.classList.add("arya-regular");
-		});
 	</script>
 </body>
 
