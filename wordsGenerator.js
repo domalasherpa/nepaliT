@@ -1,19 +1,10 @@
 
 async function getRandomWords(){
-
-    // return ["पूर्ण",
-    // "बल",
-    // "नीलो",
-    // "वस्तु",
-    // "निर्णय",
-    // "सतह",
-    // "गहिरो"];
-
     try{
-        let randomWords = await fetch('/api/random-words');
+        let randomWords = await fetch('https://randomnepaliwords.azurewebsites.net/api/httptrigger1');
         randomWords = await randomWords.json();
-        console.log(randomWords["word"]);
-        return randomWords["word"];
+        console.log(randomWords["randomWords"]);
+        return randomWords["randomWords"];
     }
     catch(error){
         console.log("client error: ", error);
