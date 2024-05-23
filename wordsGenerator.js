@@ -2,14 +2,14 @@ let randomWords = [];
 
 async function getRandomWords(){
     try{
-        let randomWords = await fetch('http://localhost:7071/api/httpTrigger1');
+        // let randomWords = await fetch('http://localhost:7071/api/httpTrigger1');
+        let randomWords = await fetch('https://randomnepaliwords.azurewebsites.net/api/httptrigger1');        
         randomWords = await randomWords.json();
-        console.log(randomWords);
         return randomWords["randomWords"];
     }
     catch(error){
         console.log("client error: ", error);
-        return [];
+        return ["रूप", "म","आफ्नो","कि","उहाँले","थियो","को लागि","मा","हो","संग"]; //default data if there ara some lag.
     }
 }
 
@@ -18,8 +18,7 @@ export async function loadRandomWords(){
     if(randomWords.length == 0){
         randomWords = await getRandomWords();
     }
-    console.log(randomWords);
-    let randomWord = randomWords.pop();
+    let randomWord = randomWords.pop(); //change this to random index pop
     return randomWord;
 }
 
