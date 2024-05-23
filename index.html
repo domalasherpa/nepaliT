@@ -13,22 +13,27 @@
 
 <body>
 	<div class="mainContainer">
-		<div class="wordDisplay"></div>
-		<!-- <textarea id="textarea" rows="4" cols="50" autofocus></textarea> -->
+		<div class="wordDisplay arya-regular">
+			<p class="randomWord"></p>
+			<p class="charDisplay"></p>
+		</div>
 		<div class="container"></div>
 	</div>
 	
 	<script type="module">
 		import {generateKeyboard, preeti, jsKeyMap} from "./script.js";
-		import {showRandomWords} from "./wordsGenerator.js";
+		import {loadRandomWords, displayWord} from "./wordsGenerator.js";
 
-		showRandomWords();
 		generateKeyboard();
-
-		document.addEventListener('keydown', function (event) {
+		let word = await loadRandomWords();
+		let userWord = "", index = 0;
+    	displayWord(word);
+		
+		document.addEventListener('keydown', async(event)=>{
+			console.log("inside the key down");
 			console.log(preeti(event.key));
 			let pressedKey;
-			if(event.location == 2){
+			if(event.location == 2){ //check if the key is of right side 
 				pressedKey = document.querySelector("." + (jsKeyMap[event.key] ?? event.key) + "right");
 			}
 			else{
@@ -41,9 +46,21 @@
 					pressedKey.classList.remove('pressed'); 
 				}, 200);
 			}
-			const textArea = document.getElementById('textarea');
+			console.log(event.key, " ", word[index]);
+			if(preeti(event.key) === word[index]){
+				index ++;
+				alert("matched");
+				userWord = userWord + preeti(event.key);
+			}
+			console.log(userWord, " ", word);
+			if(userWord === word){
+				//change the color of the word to add
+				userWord = "";
+				index = 0;
+				word = await loadRandomWords();
+				displayWord(word);
+			}
 		});
-
 	</script>
 </body>
 
