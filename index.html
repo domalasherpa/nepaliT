@@ -26,18 +26,18 @@
 
 		generateKeyboard();
 		let word = await loadRandomWords();
-		let userWord = "", index = 0;
+		let userWord = "", tempWord = "", index = 0;
     	displayWord(word);
 		
 		document.addEventListener('keydown', async(event)=>{
-			console.log("inside the key down");
-			console.log(preeti(event.key));
+			let userKey = event.key;
 			let pressedKey;
+
 			if(event.location == 2){ //check if the key is of right side 
-				pressedKey = document.querySelector("." + (jsKeyMap[event.key] ?? event.key) + "right");
+				pressedKey = document.querySelector("." + (jsKeyMap[userKey] ?? userKey) + "right");
 			}
 			else{
-				pressedKey = document.querySelector("." + (jsKeyMap[event.key] ?? event.key));
+				pressedKey = document.querySelector("." + (jsKeyMap[userKey] ?? userKey));
 			}
 
 			if (pressedKey) {
@@ -46,19 +46,34 @@
 					pressedKey.classList.remove('pressed'); 
 				}, 200);
 			}
-			console.log(event.key, " ", word[index]);
-			if(preeti(event.key) === word[index]){
-				index ++;
-				alert("matched");
-				userWord = userWord + preeti(event.key);
+
+			tempWord = tempWord + preeti(userKey);
+
+			if(preeti(userKey) === word[index]){
+				let matchedChar = document.querySelector(".charDisplay").childNodes[index];
+				matchedChar.classList.add("matched");
+				index ++; 
+				tempWord = "";
+				userWord = userWord + preeti(userKey);
 			}
-			console.log(userWord, " ", word);
+			else if(preeti(tempWord) === word[index]){ //to check the post rules
+				let matchedChar = document.querySelector(".charDisplay").childNodes[index];
+				matchedChar.classList.add("matched");
+				index++;
+				userWord = userWord + preeti(tempWord);
+				tempWord = "";
+			}
 			if(userWord === word){
-				//change the color of the word to add
+				let matchedWord = document.querySelector(".randomWord");
+				matchedWord.classList.add("matched");
 				userWord = "";
+				tempWord = "";
 				index = 0;
 				word = await loadRandomWords();
-				displayWord(word);
+				setTimeout(()=>{
+					matchedWord.classList.remove("matched");
+					displayWord(word);
+				}, 250);
 			}
 		});
 	</script>
