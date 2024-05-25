@@ -19,20 +19,22 @@ export function preeti(text, font) {
     if (!font) {
         font = 'preeti';
     }
-    //   font = font.toLowerCase();
+    
     var myFont = all_rules[font];
     if (!myFont) {
         throw 'font not included in module';
     }
 
-    if(text.length == 1){
+    if(text.length <= 1){
         return myFont['char-map'][text] || text;
     }
 
+    let output=text;
     for (var r = 0; r < myFont['post-rules'].length; r++) {
-        let post_rules = new RegExp(myFont['post-rules'][r][0]);
-        if(text.match(post_rules)){
-            return myFont['post-rules'][r][1];
+        let post_rules = new RegExp(myFont['post-rules'][r][0], 'g');
+        
+        if(post_rules.test(output)){
+            output =  myFont['post-rules'][r][1];
         }
     }
     return output;
