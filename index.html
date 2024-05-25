@@ -29,40 +29,49 @@
 		let userWord = "", tempWord = "", index = 0;
     	displayWord(word);
 		
-		document.addEventListener('keydown', async(event)=>{
-			let userKey = event.key;
-			let pressedKey;
+		function playAudio(choice){
+			let beat = new Audio("./correct.wav");
+            beat.play();
+		}
 
-			if(event.location == 2){ //check if the key is of right side 
-				pressedKey = document.querySelector("." + (jsKeyMap[userKey] ?? userKey) + "right");
-			}
-			else{
-				pressedKey = document.querySelector("." + (jsKeyMap[userKey] ?? userKey));
-			}
-
+		function showPressedKey(event, userKey){
+			let pressedKey = document.querySelector("." + (jsKeyMap[userKey] ?? userKey) + (event.location == 2 ? "right": ""));
 			if (pressedKey) {
 				pressedKey.classList.add('pressed');
 				setTimeout(() => {
 					pressedKey.classList.remove('pressed'); 
 				}, 200);
 			}
+		}
 
-			tempWord = tempWord + preeti(userKey);
+		document.addEventListener('keydown', async(event)=>{
+			let userKey = event.key;
+			let userNepKey = "";
+			let wordRegex = "";
 
-			if(preeti(userKey) === word[index]){
+			showPressedKey(event, userKey);
+
+			userNepKey = preeti(userKey);
+			tempWord = preeti(tempWord + userNepKey);
+			wordRegex= new RegExp(word[index], 'g');
+		
+			if(wordRegex.test(userNepKey)){
 				let matchedChar = document.querySelector(".charDisplay").childNodes[index];
+				playAudio("correct");
 				matchedChar.classList.add("matched");
 				index ++; 
 				tempWord = "";
-				userWord = userWord + preeti(userKey);
+				userWord = userWord + userNepKey;
 			}
-			else if(preeti(tempWord) === word[index]){ //to check the post rules
+			else if(wordRegex.test(tempWord)){
 				let matchedChar = document.querySelector(".charDisplay").childNodes[index];
+				playAudio("correct");
 				matchedChar.classList.add("matched");
 				index++;
-				userWord = userWord + preeti(tempWord);
+				userWord = userWord + tempWord;
 				tempWord = "";
 			}
+
 			if(userWord === word){
 				let matchedWord = document.querySelector(".randomWord");
 				matchedWord.classList.add("matched");
