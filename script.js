@@ -25,13 +25,16 @@ export function preeti(text, font) {
         throw 'font not included in module';
     }
 
-    var output = '';
-    for (var w = 0; w < text.length; w++) {
-        var letter = text[w];
-        output += myFont['char-map'][letter] || letter;
+    if(text.length == 1){
+        return myFont['char-map'][text] || text;
     }
+
     for (var r = 0; r < myFont['post-rules'].length; r++) {
-        output = output.replace(new RegExp(myFont['post-rules'][r][0], 'g'), myFont['post-rules'][r][1]);
+        let post_rules = new RegExp(myFont['post-rules'][r][0]);
+        if(text.match(post_rules)){
+            alert( `${text} matches`);
+            return myFont['post-rules'][r][1];
+        }
     }
     return output;
 }
