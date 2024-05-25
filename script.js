@@ -32,7 +32,6 @@ export function preeti(text, font) {
     for (var r = 0; r < myFont['post-rules'].length; r++) {
         let post_rules = new RegExp(myFont['post-rules'][r][0]);
         if(text.match(post_rules)){
-            alert( `${text} matches`);
             return myFont['post-rules'][r][1];
         }
     }
