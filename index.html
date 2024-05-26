@@ -44,32 +44,52 @@
 			}
 		}
 
-		document.addEventListener('keydown', async(event)=>{
-			let userKey = event.key;
+		
+		document.addEventListener('keyup', async(event)=>{
+			let userKey = "";
 			let userNepKey = "";
 			let wordRegex = "";
+			let matched = false;
 
+			if(event.altKey == true && event.key != "Alt"){ //function to deal with alt codes.
+                userKey = event.key;
+                console.log(x);
+                return;
+            }
+
+			if (userKey == "Shift" || userKey == "Control" || userKey == "Win") {
+				return;
+			}
+			
+            userKey = event.key;
 			showPressedKey(event, userKey);
-
 			userNepKey = preeti(userKey);
-			tempWord = preeti(tempWord + userNepKey);
-			wordRegex= new RegExp(word[index], 'g');
-		
-			if(wordRegex.test(userNepKey)){
+			
+
+			if(userNepKey == word[index]){
+				matched = true;
+				userWord = userWord + userNepKey;
+			}
+			else{
+				tempWord = preeti(tempWord + userNepKey);
+				let wordCombination = "";
+				for(let i = tempWord.length-1; i >= 0; i--){
+					wordCombination = tempWord[i] + wordCombination; 
+					if(wordCombination == word[index] && wordCombination.length == word[index].length){
+						matched = true;
+						userWord = userWord + tempWord;
+						break;
+					}
+				}
+			}
+
+			if(matched){
 				let matchedChar = document.querySelector(".charDisplay").childNodes[index];
 				playAudio("correct");
 				matchedChar.classList.add("matched");
 				index ++; 
 				tempWord = "";
-				userWord = userWord + userNepKey;
-			}
-			else if(wordRegex.test(tempWord)){
-				let matchedChar = document.querySelector(".charDisplay").childNodes[index];
-				playAudio("correct");
-				matchedChar.classList.add("matched");
-				index++;
-				userWord = userWord + tempWord;
-				tempWord = "";
+				matched= false;
 			}
 
 			if(userWord === word){
