@@ -19,26 +19,22 @@ export function preeti(text, font) {
     if (!font) {
         font = 'preeti';
     }
-    
     var myFont = all_rules[font];
     if (!myFont) {
         throw 'font not included in module';
     }
 
-    if(text.length <= 1){
-        return myFont['char-map'][text] || text;
+    var output = '';
+    for (var w = 0; w < text.length; w++) {
+        var letter = text[w];
+        output += myFont['char-map'][letter] || letter;
     }
-
-    let output=text;
     for (var r = 0; r < myFont['post-rules'].length; r++) {
-        let post_rules = new RegExp(myFont['post-rules'][r][0], 'g');
-        
-        if(post_rules.test(output)){
-            output =  myFont['post-rules'][r][1];
-        }
+        output = output.replace(new RegExp(myFont['post-rules'][r][0], 'g'), myFont['post-rules'][r][1]);
     }
     return output;
 }
+
 
 /**-----------------------------------------------------------------------------------------------------*/
 
