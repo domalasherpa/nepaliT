@@ -1,0 +1,75 @@
+.menuDisplay{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background-color: #323437;
+    overflow: hidden;
+    color:#FFC700;
+    padding: 0px 10px;
+}
+
+.mapDisplay{
+    display: flex;
+    flex-wrap: wrap;
+    transition: .6s;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    border: 1px solid #FFC700;
+    padding: 10px;
+}
+
+.mapDisplay>div>div{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 150px;
+    padding: 4px ;
+    border: 2px solid #2e2e2e;
+    margin: 0px 5px;
+} 
+ 
+.menu-btn{
+    width: 30px;
+    height: 30px;
+    position: fixed;
+    transition: .4s ease;
+    margin-left: auto;
+    cursor: pointer;
+    top: 0%;
+    right: 5%;
+}
+
+.menu-btn .menu-span{
+    height: 5px;
+    width: 100%;
+    position: absolute;
+    background-color: #FFC700;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: .3s ease;
+    border-radius: 5px ;
+}
+
+.menu-btn.active .menu-span:nth-child(1){
+    top:50%;
+    transform:translate(-50%, -50%)  rotate(45deg);
+}
+
+.menu-btn.active .menu-span:nth-child(3){
+    top: 50%;
+    transform:translate(-50%, -50%)  rotate(-45deg);
+}
+
+.menu-btn.active .menu-span:nth-child(2){
+    background-color: transparent;
+}
+
+.menu-btn span:nth-child(1){
+    top: 25%;
+}
+.menu-btn span:nth-child(3){
+    top: 75%;
+} 
