@@ -15,10 +15,10 @@ async function getRandomWords(){
 
 export async function loadRandomWords(){
     //use local storage or session storage to reduce api hit 
-    let randomWord = randomWords.pop(); //change this to random index pop
-    if(randomWords.length == 1){
+    if(randomWords.length == 0){
         randomWords = await getRandomWords();
     }
+    let randomWord = randomWords.pop(); //change this to random index pop
     return randomWord;
 }
 
