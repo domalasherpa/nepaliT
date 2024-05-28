@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>On-Screen Nepali Keyboard</title>
 	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="showMappingStyle.css">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arya:wght@400;700&display=swap" rel="stylesheet">
@@ -13,13 +14,31 @@
 
 <body>
 	<div class="mainContainer">
-		<div class="wordDisplay arya-regular">
-			<p class="randomWord"></p>
-			<p class="charDisplay"></p>
+		<div class="menu-btn">
+			<span class="menu-span"></span>
+			<span class="menu-span"></span>
+			<span class="menu-span"></span>
 		</div>
-		<div class="container"></div>
+
+		<div class="keyboardChallenge">
+			<div class="wordDisplay arya-regular">
+				<p class="randomWord"></p>
+				<p class="charDisplay"></p>
+			</div>
+			<div class="container"></div>
+		</div>
+		
+		<div class="menuDisplay">
+			<div class="mapDisplay">
+			</div>
+		</div>
+		
 	</div>
 	
+	
+	
+	
+	<script src="showMapping.js"></script>
 	<script type="module">
 		import {generateKeyboard, preeti, jsKeyMap} from "./script.js";
 		import {loadRandomWords, displayWord} from "./wordsGenerator.js";
@@ -52,8 +71,8 @@
 			let matched = false;
 
 			if(event.altKey == true && event.key != "Alt"){ //function to deal with alt codes.
+				alert("inside alt key");
                 userKey = event.key;
-                console.log(x);
                 return;
             }
 
